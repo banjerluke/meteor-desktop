@@ -183,6 +183,13 @@ describe('desktop', () => {
             expect(title).to.equal('test-desktop');
             const text = await app.client.getText('h1');
             expect(text).to.equal('Welcome to Meteor!');
+
+            // Test the exposedModules functionality.
+            const result = await app.client.execute(function test() {
+                return Desktop.electron.webFrame.getZoomFactor();
+            });
+            expect(result.value).to.equal(1);
+
         }).timeout(10 * 60000);
     });
 });
