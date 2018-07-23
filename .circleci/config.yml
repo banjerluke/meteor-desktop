@@ -1,0 +1,39 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8.11.3-jessie-browsers
+    steps:
+      - checkout
+      - run: sudo sysctl fs.inotify.max_user_watches=524288
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - ~/.electron
+            - ~/.yarn-cache
+      - restore_cache:
+          key: meteor-cache-{{ checksum "tests/integration/preapre.js" }}
+      - run:
+          name: Install meteor
+          command: meteor || curl https://install.meteor.com/?release=1.5.4.1 | /bin/sh
+      - save_cache:
+          key: meteor-cache-{{ checksum "tests/integration/preapre.js" }}
+          paths:
+            - ~/.meteor
+      - run:
+          name: Test
+          command: npm run test
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
