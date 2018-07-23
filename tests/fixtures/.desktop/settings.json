@@ -10,7 +10,6 @@
     "autoUpdateFeedHeaders": {},
     "autoUpdateCheckOnStart": true,
     "rebuildNativeNodeModules": false,
-    "exposedModules": ["webFrame"],
     "webAppStartupTimeout": 60000,
     "window": {
         "icon": "@assets/meteor.png",

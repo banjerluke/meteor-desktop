@@ -176,29 +176,28 @@ describe('desktop', () => {
             });
         });
 
-        // it('should create a build', async () => {
-        //     // Load plugins directly from the package instead of those published to atmosphere.
-        //     process.env.METEOR_PACKAGE_DIRS = path.resolve(path.join(__dirname, '..', '..', 'plugins'));
-        //     MeteorDesktop = meteorDesktop(
-        //         appDir,
-        //         appDir,
-        //         {
-        //             ddpUrl: 'http://127.0.0.1:3080',
-        //             build: true,
-        //             output: appDir,
-        //             scaffold: true,
-        //             skipMobileBuild: !!process.env.TRAVIS,
-        //             forceCordovaBuild: !!process.env.TRAVIS,
-        //             skipRemoveMobilePlatform: true
-        //         }
-        //     );
-        //
-        //     // Build the app.
-        //     await MeteorDesktop.build();
-        //
-        //     await runIt();
-        //
-        // }).timeout(10 * 60000);
+        it('should build with -b', async () => {
+            // Load plugins directly from the package instead of those published to atmosphere.
+            process.env.METEOR_PACKAGE_DIRS = path.resolve(path.join(__dirname, '..', '..', 'plugins'));
+            MeteorDesktop = meteorDesktop(
+                appDir,
+                appDir,
+                {
+                    ddpUrl: 'http://127.0.0.1:3080',
+                    build: true,
+                    output: appDir,
+                    scaffold: true,
+                    skipMobileBuild: !!process.env.TRAVIS,
+                    forceCordovaBuild: !!process.env.TRAVIS,
+                    skipRemoveMobilePlatform: true
+                }
+            );
+
+            // Build the app.
+            await MeteorDesktop.build();
+
+            await runIt();
+        }).timeout(10 * 60000);
 
         it('expose electron modules', async () => {
             const platformsPath = path.join(appDir, '.meteor', 'platforms');
