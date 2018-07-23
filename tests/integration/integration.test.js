@@ -218,6 +218,7 @@ describe('desktop', () => {
                     ddpUrl: 'http://127.0.0.1:3080',
                     build: true,
                     output: appDir,
+                    scaffold: true,
                     skipMobileBuild: true,
                     forceCordovaBuild: true
                 }
